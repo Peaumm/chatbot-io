@@ -15,10 +15,25 @@ const Bot = class {
       if (event.key === 'Enter' || event.keyCode === 13) {
         const newDiv = document.createElement('div');
         newDiv.id = `input${this.i}`;
-        this.i += 1;
         newDiv.innerHTML = keyWord;
         elDisplayBot.appendChild(newDiv);
         elInputUser.value = '';
+        this.sayHello(keyWord);
+        this.i += 1;
+      }
+    });
+  }
+
+  sayHello(input) {
+    const elDisplayBot = document.querySelector('.display');
+    const select = ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut'];
+
+    select.forEach((el) => {
+      if (input === el) {
+        const newDiv = document.createElement('div');
+        newDiv.id = `response${this.i}`;
+        newDiv.innerHTML = 'Salut';
+        elDisplayBot.appendChild(newDiv);
       }
     });
   }
