@@ -1,7 +1,11 @@
+import axios from 'axios';
+
 const Bot = class {
-  constructor() {
+  constructor(params) {
     this.el = document.querySelector('#root');
+    this.params = params;
     this.i = 0;
+    this.data = [];
 
     this.run();
   }
@@ -12,7 +16,7 @@ const Bot = class {
 
     elInputUser.addEventListener('keyup', (event) => {
       const keyWord = elInputUser.value;
-      if (event.key === 'Enter' || event.keyCode === 13) {
+      if ((event.key === 'Enter' || event.keyCode === 13) && keyWord !== '') {
         const newDiv = document.createElement('div');
         newDiv.id = `input${this.i}`;
         newDiv.innerHTML = keyWord;
@@ -20,6 +24,7 @@ const Bot = class {
         elInputUser.value = '';
         this.sayHello(keyWord);
         this.i += 1;
+        this.sayWeather(keyWord, this.data);
       }
     });
   }
@@ -33,6 +38,20 @@ const Bot = class {
         const newDiv = document.createElement('div');
         newDiv.id = `response${this.i}`;
         newDiv.innerHTML = 'Salut';
+        elDisplayBot.appendChild(newDiv);
+      }
+    });
+  }
+
+  sayWeather(input, weather) {
+    const elDisplayBot = document.querySelector('.display');
+    const select = ['meteo', 'Meteo', 'Météo', 'météo'];
+
+    select.forEach((el) => {
+      if (input === el) {
+        const newDiv = document.createElement('div');
+        newDiv.id = `response${this.i}`;
+        newDiv.innerHTML = `Il fait actuellement ${weather}`;
         elDisplayBot.appendChild(newDiv);
       }
     });
@@ -56,6 +75,15 @@ const Bot = class {
   }
 
   run() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { coords: { latitude, longitude } } = position;
+      axios
+        .get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day&timezone=auto`)
+        .then((res) => {
+          this.data = res.data.current.temperature_2m;
+        });
+    });
+
     this.el.innerHTML = this.render();
     this.onKeyUp();
   }
