@@ -1,3 +1,5 @@
+import Nav from '../views/nav';
+
 const Error404 = class {
   constructor() {
     this.el = document.querySelector('#root');
@@ -6,7 +8,11 @@ const Error404 = class {
   }
 
   render() {
-    return '<h1>Ceci est une erreur 404</h1>';
+    return `
+      ${Nav(`
+         <h1>Ceci est une erreur 404</h1>
+      `)}
+    `;
   }
 
   run() {

@@ -1,5 +1,91 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
+
 
 h1 {
-  color: red;
+  color: white;
+  font-family: "Kavoon", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.navbar {
+  background-color: #000F42 !important;
+  justify-content: center!important;
+}
+
+.messagedisplays{
+  height: 50px;
+  width: 100px;
+  background-color: red;
+}
+.icon-robot {
+  min-height: 50px;
+  min-width: 50px;
+  border: solid 1px white;
+  color: white;
+  background-color: #000F42;
+}
+.icon-user {
+  min-height: 50px;
+  min-width: 50px;
+  border: solid 1px #000F42;
+  color: #000F42;
+}
+.btn-send {
+  background-color: #000F42;
+}
+.fa-paper-plane {
+  color: white;
+}
+.form-control {
+  width: 50%;
+  border: 1px solid #000F42;
+}
+.input-message {
+  width: 70%!important;  
+}
+.history-message {
+  border: 1px solid #000F42;
+  border-radius: 20px;
+}
+.notification {
+  height: 25px;
+  width: 25px;
+  border: solid 1px white;
+  background-color: darkorange;
+  color: white;
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+}
+.bot {
+  border: solid 1px #000F42;
+  padding: 1rem;
+  border-radius: 20px;
+  background-color: #000F42;
+  position: relative;
+}
+.icon-robot-list {
+  min-height: 50px;
+  min-width: 50px;
+  border: solid 1px white;
+  color: white;
+}
+.input-group {
+  position: fixed;
+  bottom: 5rem;
+  right: 3rem;
+  z-index: 1;
+}
+.section-messages {
+  height: 60vh;
+}
+.delimitation {
+  height: 77.4vh;
+}
+.history-message-robot {
+  border: 1px solid #000F42;
+  border-radius: 20px;
+  background-color: #000F42;
+  color: white;
 }
