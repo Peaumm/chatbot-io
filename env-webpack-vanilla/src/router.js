@@ -1,6 +1,6 @@
 import Error404 from './controllers/Error404';
 
-const Router = class {
+const Router = class Router {
   constructor(routes = []) {
     this.path = window.location.pathname;
     this.params = !window.location.search ? {} : Object.fromEntries(
