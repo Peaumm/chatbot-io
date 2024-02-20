@@ -95,7 +95,7 @@ const Bot = class {
         newDiv3.className = 'history-message-robot container-fluid me-2';
         newP.className = 'm-3';
         newSpan.className = 'me-3 mb-2 d-flex justify-content-end';
-        newP.innerHTML = `Il fait actuellement ${weather}`;
+        newP.innerHTML = `Il fait actuellement ${weather}°C`;
         newDiv3.appendChild(newP);
         newDiv3.appendChild(newSpan);
         newDiv2.appendChild(newImage);
