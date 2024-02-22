@@ -1,7 +1,8 @@
 import viewItemBot from './item-bot';
 
 export default () => (`
-  <div class="col-2 p-0 d-flex flex-column text-align align-items-center overflow-auto border-end border-dark">
+  <div class="col-2 p-0 d-flex flex-column text-align align-items-center overflow-auto border-end border-dark section-bot">
+    ${viewItemBot()}
     ${viewItemBot()}
     ${viewItemBot()}
   </div>

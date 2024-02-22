@@ -48,6 +48,7 @@ const Bot = class Bot {
           date: new Date()
         };
         elMessages.innerHTML += responseBot(data);
+        this.autoScroll();
       }
     });
   }
@@ -56,7 +57,7 @@ const Bot = class Bot {
     const elMessages = document.querySelector('.section-messages');
     const select = ['meteo', 'Meteo', 'Météo', 'météo'];
 
-    if (weather === undefined) {
+    if (weather === '') {
       const data = {
         message: 'Il est impossible actuellement de recevoir la météo',
         date: new Date()
@@ -70,6 +71,7 @@ const Bot = class Bot {
             date: new Date()
           };
           elMessages.innerHTML += responseBot(data);
+          this.autoScroll();
         }
       });
     }
@@ -84,6 +86,11 @@ const Bot = class Bot {
           this.data = res.data.current.temperature_2m;
         });
     });
+  }
+
+  autoScroll() {
+    const messageDiv = document.querySelector('.section-messages');
+    messageDiv.scrollTop = messageDiv.scrollHeight;
   }
 
   render() {
