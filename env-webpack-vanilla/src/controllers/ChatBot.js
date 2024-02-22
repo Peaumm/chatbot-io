@@ -29,17 +29,17 @@ const Bot = class Bot {
         };
 
         elMessages.innerHTML += viewMessage(data);
-
         elInputUser.value = '';
         this.sayHello(keyWord);
         this.sayWeather(keyWord, this.data);
+        this.autoScroll();
       }
     });
   }
 
   sayHello(input) {
     const elMessages = document.querySelector('.section-messages');
-    const select = ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut'];
+    const select = ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut', 'hello'];
 
     select.forEach((el) => {
       if (input === el) {
@@ -48,6 +48,7 @@ const Bot = class Bot {
           date: new Date()
         };
         elMessages.innerHTML += responseBot(data);
+        this.incrementNotifications(1);
         this.autoScroll();
       }
     });
@@ -71,6 +72,7 @@ const Bot = class Bot {
             date: new Date()
           };
           elMessages.innerHTML += responseBot(data);
+          this.incrementNotifications(2);
           this.autoScroll();
         }
       });
@@ -91,6 +93,19 @@ const Bot = class Bot {
   autoScroll() {
     const messageDiv = document.querySelector('.section-messages');
     messageDiv.scrollTop = messageDiv.scrollHeight;
+  }
+
+  incrementNotifications(id) {
+    const notification = document.getElementById(id);
+    const elMessages = document.querySelector('.section-messages');
+    if (elMessages && elMessages.children.length > 0) {
+      const currentNotificationCount = parseInt(notification.textContent, 10);
+      if (currentNotificationCount + 1 < 100) {
+        notification.textContent = currentNotificationCount + 1;
+      } else {
+        notification.textContent = '99+';
+      }
+    }
   }
 
   render() {
