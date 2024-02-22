@@ -1,5 +1,5 @@
 export default () => (`
-  <div class="bot d-flex align-items-center my-4">
+  <div class="bot d-flex align-items-center my-3">
     <div class="icon-robot-list rounded-circle d-flex align-items-center justify-content-center"> 
       <i class="fa-solid fa-robot"></i>
     </div>
