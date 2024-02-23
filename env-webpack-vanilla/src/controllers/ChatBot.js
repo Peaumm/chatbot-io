@@ -30,23 +30,30 @@ const ChatBot = class ChatBot {
         elMessages.innerHTML += viewMessage(data);
         elInputUser.value = '';
 
-        bots.forEach((bot) => {
-          const response = [];
-          bot.actions.forEach((el) => {
-            const { word, action } = el;
-            word.forEach((element) => {
-              if (element === keyWord) {
-                response.push({
-                  message: action(),
-                  date: new Date()
-                });
-              }
-            });
-          });
-          elMessages.innerHTML += responseBot(response);
-          elMessages.scrollTop = elMessages.scrollHeight;
-        });
+        this.action(keyWord);
       }
+    });
+  }
+
+  async action(keyWord) {
+    const elMessages = document.querySelector('.section-messages');
+
+    bots.forEach((bot) => {
+      const response = [];
+      bot.actions.forEach((el) => {
+        const { word, action } = el;
+        word.forEach((element) => {
+          if (element === keyWord) {
+            response.push({
+              message: action(),
+              name: bot.name,
+              date: new Date()
+            });
+          }
+        });
+      });
+      elMessages.innerHTML += responseBot(response);
+      elMessages.scrollTop = elMessages.scrollHeight;
     });
   }
 
