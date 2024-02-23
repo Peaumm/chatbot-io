@@ -28,7 +28,6 @@ const ChatBot = class ChatBot {
         };
 
         elMessages.innerHTML += viewMessage(data);
-
         elInputUser.value = '';
 
         bots.forEach((bot) => {
@@ -50,21 +49,21 @@ const ChatBot = class ChatBot {
     });
   }
 
-  sayWeather(weather) {
-    const elMessages = document.querySelector('.section-messages');
+  autoScroll() {
+    const messageDiv = document.querySelector('.section-messages');
+    messageDiv.scrollTop = messageDiv.scrollHeight;
+  }
 
-    if (weather.length === 0) {
-      const data = {
-        message: "Il est impossible d'afficher la météo actuellement",
-        date: new Date()
-      };
-      elMessages.innerHTML += responseBot(data);
-    } else {
-      const data = {
-        message: `Il fait actuellement ${weather}°C`,
-        date: new Date()
-      };
-      elMessages.innerHTML += responseBot(data);
+  incrementNotifications(id) {
+    const notification = document.getElementById(id);
+    const elMessages = document.querySelector('.section-messages');
+    if (elMessages && elMessages.children.length > 0) {
+      const currentNotificationCount = parseInt(notification.textContent, 10);
+      if (currentNotificationCount + 1 < 100) {
+        notification.textContent = currentNotificationCount + 1;
+      } else {
+        notification.textContent = '99+';
+      }
     }
   }
 

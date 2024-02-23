@@ -2,13 +2,13 @@ export default (data) => {
   const { message, date } = data[0];
 
   return (`
-    <div class="d-flex flex-row-reverse align-items-baseline mt-4 ">
-      <div class="icon-robot rounded-circle d-flex align-items-center justify-content-center mt-5 mb-3"> 
+    <div class="d-flex flex-row align-items-center mt-4 ">
+      <div class="icon-robot rounded-circle d-flex align-items-center justify-content-center"> 
         <i class="fa-solid fa-robot"></i>
       </div>
-      <div class="history-message-robot container-fluid me-2">
+      <div class="history-message-robot container-fluid ms-2">
           <p class="m-3">${message}</p>
-          <span class="me-3 mb-2 d-flex justify-content-end">${date.toLocaleString()}</span>
+          <span class="ms-3 mb-2 d-flex justify-content-start">${date.toLocaleString()}</span>
       </div>
     </div>
   `);

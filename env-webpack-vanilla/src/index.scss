@@ -49,14 +49,18 @@ h1 {
   border-radius: 20px;
 }
 .notification {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   border: solid 1px white;
   background-color: darkorange;
   color: white;
   position: absolute;
   top: -0.75rem;
   right: -0.75rem;
+  font-size: small;
+}
+.notification > p {
+  margin-bottom: 0;
 }
 .bot {
   border: solid 1px #000F42;
@@ -88,4 +92,7 @@ h1 {
   border-radius: 20px;
   background-color: #000F42;
   color: white;
+}
+.section-bot {
+  height: 77vh;
 }
