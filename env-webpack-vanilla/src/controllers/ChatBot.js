@@ -1,15 +1,14 @@
-import axios from 'axios';
-
 import viewNav from '../views/nav';
 import viewListBots from '../views/chatbot/list-bots';
-import responseBot from '../views/responseBot';
+import responseBot from '../views/chatbot/responseBot';
 import viewMessage from '../views/chatbot/message';
+import bots from '../class/bots';
+import input from '../views/chatbot/input';
 
-const Bot = class Bot {
+const ChatBot = class ChatBot {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
-    this.i = 0;
     this.data = [];
 
     this.run();
@@ -31,59 +30,42 @@ const Bot = class Bot {
         elMessages.innerHTML += viewMessage(data);
 
         elInputUser.value = '';
-        this.sayHello(keyWord);
-        this.sayWeather(keyWord, this.data);
+
+        bots.forEach((bot) => {
+          const response = [];
+          bot.actions.forEach((el) => {
+            const { word, action } = el;
+            word.forEach((element) => {
+              if (element === keyWord) {
+                response.push({
+                  message: action(),
+                  date: new Date()
+                });
+              }
+            });
+          });
+          elMessages.innerHTML += responseBot(response);
+        });
       }
     });
   }
 
-  sayHello(input) {
+  sayWeather(weather) {
     const elMessages = document.querySelector('.section-messages');
-    const select = ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut'];
 
-    select.forEach((el) => {
-      if (input === el) {
-        const data = {
-          message: 'Salut',
-          date: new Date()
-        };
-        elMessages.innerHTML += responseBot(data);
-      }
-    });
-  }
-
-  sayWeather(input, weather) {
-    const elMessages = document.querySelector('.section-messages');
-    const select = ['meteo', 'Meteo', 'Météo', 'météo'];
-
-    if (weather === undefined) {
+    if (weather.length === 0) {
       const data = {
-        message: 'Il est impossible actuellement de recevoir la météo',
+        message: "Il est impossible d'afficher la météo actuellement",
         date: new Date()
       };
       elMessages.innerHTML += responseBot(data);
     } else {
-      select.forEach((el) => {
-        if (input === el) {
-          const data = {
-            message: `Il fait actuellement ${weather}°C`,
-            date: new Date()
-          };
-          elMessages.innerHTML += responseBot(data);
-        }
-      });
+      const data = {
+        message: `Il fait actuellement ${weather}°C`,
+        date: new Date()
+      };
+      elMessages.innerHTML += responseBot(data);
     }
-  }
-
-  getWeather() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { coords: { latitude, longitude } } = position;
-      axios
-        .get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day&timezone=auto`)
-        .then((res) => {
-          this.data = res.data.current.temperature_2m;
-        });
-    });
   }
 
   render() {
@@ -91,20 +73,15 @@ const Bot = class Bot {
       <div>${viewNav()}</div>
       <div class="container-fluid">
         <div class="row">
-            ${viewListBots()}
-            <div class="col-1 delimitation d-flex flex-column"
-              <hr>
-            </div>
-            <!-- Messages -->
-            <div class="col-9 overflow-scroll section-messages display"></div>
-            <!-- Input Messages -->
-            <div id="" class="input-group input-message mt-3">
-              <input type="text" class="input-user form-control" placeholder="Type your Message...">
-            <div class="rounded-circle">
-              <button class="btn btn-send rounded-circle ms-3">
-                <i class="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
+          ${viewListBots()}
+          <div class="col-1 delimitation d-flex flex-column"
+            <hr>
+          </div>
+          <!-- Messages -->
+          <div class="col-9 overflow-scroll section-messages display"></div>
+          <!-- Input Messages -->
+          <div id="" class="input-group input-message mt-3">
+            ${input()}
           </div>
         </div>
       </div>
@@ -112,37 +89,9 @@ const Bot = class Bot {
   }
 
   run() {
-    this.getWeather();
     this.el.innerHTML = this.render();
     this.onKeyUp();
   }
 };
 
-// const entities = [{
-//   name: 'Roger',
-//   action: [{
-//     name: 'Bonjour',
-//     word: ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut'],
-//     result: sayHello()
-//   }]
-// }, {
-//   name: 'Echo',
-//   action: [{
-//     name: 'Bonjour',
-//     word: ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut'],
-//     result: sayHello()
-//   }, {
-//     name: 'Meteo',
-//     word: ['meteo', 'Meteo', 'Météo', 'météo'],
-//     result: sayWeather()
-//   }]
-// }];
-
-// const bots = entities.map((bot) => new Bot(bot));
-// bots.forEach((el) => {
-//   console.log(el.entity);
-//   const word = 'Meteo';
-//   bots.getActionByWord(word);
-// });
-
-export default Bot;
+export default ChatBot;
