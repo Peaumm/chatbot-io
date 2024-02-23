@@ -1,5 +1,5 @@
 export default (data) => {
-  const { message, date } = data;
+  const { message, date } = data[0];
 
   return (`
     <div class="d-flex flex-row align-items-center mt-4 ">
