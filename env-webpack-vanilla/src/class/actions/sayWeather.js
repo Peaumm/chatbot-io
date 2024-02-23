@@ -14,7 +14,6 @@ const sayWeather = {
         .then((res) => {
           temp += res.data.current.temperature_2m;
         });
-      console.log(temp);
       if (temp === 0) {
         response = "Il est impossible d'afficher la météo actuellement";
       } else {
