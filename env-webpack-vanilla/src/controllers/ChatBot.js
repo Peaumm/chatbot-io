@@ -44,14 +44,10 @@ const ChatBot = class ChatBot {
             });
           });
           elMessages.innerHTML += responseBot(response);
+          elMessages.scrollTop = elMessages.scrollHeight;
         });
       }
     });
-  }
-
-  autoScroll() {
-    const messageDiv = document.querySelector('.section-messages');
-    messageDiv.scrollTop = messageDiv.scrollHeight;
   }
 
   incrementNotifications(id) {
