@@ -12,15 +12,13 @@ const sayWeather = {
       axios
         .get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day&timezone=auto`)
         .then((res) => {
-          temp += res.data.current.temperature_2m;
+          temp = res.data.current.temperature_2m;
+          return temp;
+        }).then((res) => {
+          response = `Il fait actuellement ${res}°C`;
+          return response;
         });
-      if (temp === 0) {
-        response = "Il est impossible d'afficher la météo actuellement";
-      } else {
-        response = `Il fait actuellement ${temp}°C`;
-      }
     });
-    return response;
   }
 };
 

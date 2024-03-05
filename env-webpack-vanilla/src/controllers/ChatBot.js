@@ -30,16 +30,20 @@ const ChatBot = class ChatBot {
         elMessages.innerHTML += viewMessage(data);
         elInputUser.value = '';
 
-        this.action(keyWord);
+        this.action(keyWord).then((res) => {
+          res.forEach((el) => {
+            elMessages.innerHTML += responseBot(el);
+            elMessages.scrollTop = elMessages.scrollHeight;
+          });
+        });
+        elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
 
   async action(keyWord) {
-    const elMessages = document.querySelector('.section-messages');
-
+    const response = [];
     bots.forEach((bot) => {
-      const response = [];
       bot.actions.forEach((el) => {
         const { word, action } = el;
         word.forEach((element) => {
@@ -52,9 +56,8 @@ const ChatBot = class ChatBot {
           }
         });
       });
-      elMessages.innerHTML += responseBot(response);
-      elMessages.scrollTop = elMessages.scrollHeight;
     });
+    return response;
   }
 
   incrementNotifications(id) {
