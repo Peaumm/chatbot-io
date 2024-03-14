@@ -1,6 +1,5 @@
 export default (botName) => {
   const name = botName;
-
   return (`
   <div class="bot d-flex align-items-center my-3">
     <div class="icon-robot-list rounded-circle d-flex align-items-center justify-content-center"> 
@@ -13,5 +12,5 @@ export default (botName) => {
       <p>0</p>
     </div>
   </div>
-`);
+  `);
 };
