@@ -5,7 +5,7 @@ export default () => (`
   <div>${viewNav()}</div>
     <div class="container-fluid">
       <div class="row">
-         ${viewListsofBots()}
+         ${viewListsofBots(id)}
           <div class="col-1 delimitation d-flex flex-column"
             <hr>
           </div>
