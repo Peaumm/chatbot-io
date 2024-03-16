@@ -70,6 +70,28 @@ const ChatBot = class ChatBot {
     }
   }
 
+  sendMessage() {
+    const elMessages = document.querySelector('.section-messages');
+    const userInput = document.querySelector('.input-user');
+    const sendButton = document.querySelector('.btn-send');
+
+    sendButton.addEventListener('click', () => {
+      const message = userInput.value.trim();
+
+      if (message !== '') {
+        const data = {
+          message,
+          date: new Date()
+        };
+        elMessages.innerHTML += viewMessage(data);
+        elMessages.scrollTop = elMessages.scrollHeight;
+
+        this.action(message);
+        userInput.value = '';
+      }
+    });
+  }
+
   render() {
     return (`
       <div>${viewNav()}</div>
@@ -93,6 +115,7 @@ const ChatBot = class ChatBot {
   run() {
     this.el.innerHTML = this.render();
     this.onKeyUp();
+    this.sendMessage();
   }
 };
 
