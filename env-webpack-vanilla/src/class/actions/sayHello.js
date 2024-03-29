@@ -1,8 +1,8 @@
 const sayHello = {
   name: 'Bonjour',
-  word: ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut', 'doulaham'],
+  words: ['bonjour', 'Bonjour', 'wesh', 'Wesh', 'salut', 'Salut', 'doulaham'],
   arg: [],
-  action: () => ('Salut')
+  response: () => ('Salut')
 };
 
 export default sayHello;
