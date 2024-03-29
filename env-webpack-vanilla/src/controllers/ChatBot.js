@@ -29,28 +29,29 @@ const ChatBot = class ChatBot {
         };
 
         elMessages.innerHTML += viewMessage(data);
-        elInputUser.value = '';
 
-        await this.action(keyWord).then(async (res) => {
-          res.forEach((el) => {
-            elMessages.innerHTML += responseBot(el);
-            elMessages.scrollTop = elMessages.scrollHeight;
-          });
+        await this.action(elInputUser.value).then((responses) => {
+          console.log(responses);
+          elMessages.innerHTML += responseBot(data);
+          elMessages.scrollTop = elMessages.scrollHeight;
         });
+        elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
 
   async action(keyWord) {
-    const response = [];
+    const responses = [];
+
     bots.forEach((bot) => {
-      bot.actions.forEach((el) => {
-        const { word, action } = el;
-        word.forEach(async (element) => {
-          if (element === keyWord) {
-            response.push({
-              message: await action(),
+      bot.actions.forEach((action) => {
+        const { words, response } = action;
+
+        words.forEach(async (word) => {
+          if (word === keyWord) {
+            responses.push({
+              message: await response(),
               name: bot.name,
               date: new Date()
             });
@@ -58,12 +59,13 @@ const ChatBot = class ChatBot {
         });
       });
     });
-    return response;
+
+    return responses;
   }
 
   back() {
     const elMessages = document.querySelector('.section-messages');
-    const res = axios.get('http://localhost/messages/');
+    const res = axios.get('http://localhost/messages');
     res.then((messages) => {
       messages.data.forEach((datas) => {
         if (datas.is_user === 1) {
