@@ -1,3 +1,4 @@
+import axios from 'axios';
 import viewNav from '../views/nav';
 import viewListBots from '../views/chatbot/list-bots';
 import responseBot from '../views/chatbot/responseBot';
@@ -14,11 +15,11 @@ const ChatBot = class ChatBot {
     this.run();
   }
 
-  onKeyUp() {
+  async onKeyUp() {
     const elInputUser = document.querySelector('.input-user');
     const elMessages = document.querySelector('.section-messages');
 
-    elInputUser.addEventListener('keyup', (event) => {
+    elInputUser.addEventListener('keyup', async (event) => {
       const keyWord = elInputUser.value;
 
       if (event.keyCode === 13 && keyWord !== '') {
@@ -30,7 +31,7 @@ const ChatBot = class ChatBot {
         elMessages.innerHTML += viewMessage(data);
         elInputUser.value = '';
 
-        this.action(keyWord).then((res) => {
+        await this.action(keyWord).then(async (res) => {
           res.forEach((el) => {
             elMessages.innerHTML += responseBot(el);
             elMessages.scrollTop = elMessages.scrollHeight;
@@ -46,10 +47,10 @@ const ChatBot = class ChatBot {
     bots.forEach((bot) => {
       bot.actions.forEach((el) => {
         const { word, action } = el;
-        word.forEach((element) => {
+        word.forEach(async (element) => {
           if (element === keyWord) {
             response.push({
-              message: action(),
+              message: await action(),
               name: bot.name,
               date: new Date()
             });
@@ -58,6 +59,22 @@ const ChatBot = class ChatBot {
       });
     });
     return response;
+  }
+
+  back() {
+    const elMessages = document.querySelector('.section-messages');
+    const res = axios.get('http://localhost/messages/');
+    res.then((messages) => {
+      messages.data.forEach((datas) => {
+        if (datas.is_user === 1) {
+          elMessages.innerHTML += viewMessage(datas);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        } else if (datas.is_user === 0) {
+          elMessages.innerHTML += responseBot(datas);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        }
+      });
+    });
   }
 
   incrementNotifications(id) {
@@ -96,6 +113,7 @@ const ChatBot = class ChatBot {
   run() {
     this.el.innerHTML = this.render();
     this.onKeyUp();
+    this.back();
   }
 };
 
