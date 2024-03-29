@@ -1,7 +1,6 @@
 export default (botName, botNotif) => {
   const name = botName;
   const notif = botNotif;
-
   return (`
   <div class="bot d-flex align-items-center my-3">
     <div class="icon-robot-list rounded-circle d-flex align-items-center justify-content-center"> 
@@ -14,5 +13,5 @@ export default (botName, botNotif) => {
       <p>${notif}</p>
     </div>
   </div>
-`);
+  `);
 };
