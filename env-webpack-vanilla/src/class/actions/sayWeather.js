@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const sayWeather = {
   name: 'Weather',
-  word: ['meteo', 'Meteo', 'Météo', 'météo', 'matéo', 'mateo', 'Matéo', 'Mateo'],
+  word: ['meteo', 'Meteo', 'Météo', 'météo'],
   arg: [],
   action: async () => {
     let temp = 0;
