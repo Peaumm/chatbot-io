@@ -32,8 +32,10 @@ const ChatBot = class ChatBot {
 
         await this.action(elInputUser.value).then((responses) => {
           console.log(responses);
-          elMessages.innerHTML += responseBot(data);
-          elMessages.scrollTop = elMessages.scrollHeight;
+          for (let i = 0; responses.length > i; i += 1) {
+            elMessages.innerHTML += responseBot(responses[i]);
+            elMessages.scrollTop = elMessages.scrollHeight;
+          }
         });
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
@@ -59,8 +61,10 @@ const ChatBot = class ChatBot {
 
         await this.action(elInputUser.value).then((responses) => {
           console.log(responses);
-          elMessages.innerHTML += responseBot(data);
-          elMessages.scrollTop = elMessages.scrollHeight;
+          for (let i = 0; responses.length > i; i += 1) {
+            elMessages.innerHTML += responseBot(responses[i]);
+            elMessages.scrollTop = elMessages.scrollHeight;
+          }
         });
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
@@ -78,9 +82,9 @@ const ChatBot = class ChatBot {
         words.forEach(async (word) => {
           if (word === keyWord) {
             responses.push({
-              message: await response(),
               name: bot.name,
-              date: new Date()
+              date: new Date(),
+              message: await response()
             });
           }
         });
