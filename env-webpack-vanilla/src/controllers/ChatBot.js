@@ -41,6 +41,33 @@ const ChatBot = class ChatBot {
     });
   }
 
+  async sendMessage() {
+    const elMessages = document.querySelector('.section-messages');
+    const elInputUser = document.querySelector('.input-user');
+    const sendButton = document.querySelector('.btn-send');
+
+    sendButton.addEventListener('click', async () => {
+      const keyWord = elInputUser.value;
+
+      if (keyWord !== '') {
+        const data = {
+          message: keyWord,
+          date: new Date()
+        };
+        elMessages.innerHTML += viewMessage(data);
+        elMessages.scrollTop = elMessages.scrollHeight;
+
+        await this.action(elInputUser.value).then((responses) => {
+          console.log(responses);
+          elMessages.innerHTML += responseBot(data);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        });
+        elInputUser.value = '';
+        elMessages.scrollTop = elMessages.scrollHeight;
+      }
+    });
+  }
+
   async action(keyWord) {
     const responses = [];
 
@@ -90,28 +117,6 @@ const ChatBot = class ChatBot {
         notification.textContent = '99+';
       }
     }
-  }
-
-  sendMessage() {
-    const elMessages = document.querySelector('.section-messages');
-    const userInput = document.querySelector('.input-user');
-    const sendButton = document.querySelector('.btn-send');
-
-    sendButton.addEventListener('click', () => {
-      const message = userInput.value.trim();
-
-      if (message !== '') {
-        const data = {
-          message,
-          date: new Date()
-        };
-        elMessages.innerHTML += viewMessage(data);
-        elMessages.scrollTop = elMessages.scrollHeight;
-
-        this.action(message);
-        userInput.value = '';
-      }
-    });
   }
 
   render() {

@@ -3,9 +3,9 @@ import sayWeather from './sayWeather';
 
 const sayHelp = {
   name: 'Help',
-  word: ['help', 'aide'],
+  words: ['help', 'aide'],
   arg: [],
-  action: () => {
+  response: () => {
     const availableCommands = [
       { command: [sayWeather.word], description: 'Afficher la météo selon la localisation' },
       { command: [sayHello.word], description: 'Dire bonjour' }
