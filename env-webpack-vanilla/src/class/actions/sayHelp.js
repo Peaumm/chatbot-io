@@ -7,8 +7,8 @@ const sayHelp = {
   arg: [],
   response: () => {
     const availableCommands = [
-      { command: [sayWeather.word], description: 'Afficher la météo selon la localisation' },
-      { command: [sayHello.word], description: 'Dire bonjour' }
+      { command: [sayWeather.words], description: 'Afficher la météo selon la localisation' },
+      { command: [sayHello.words], description: 'Dire bonjour' }
     ];
 
     const formattedCommands = availableCommands.map((cmd) => `<b>${cmd.description} : </b> ${cmd.command}`).join('<br>');
