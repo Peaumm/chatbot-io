@@ -30,13 +30,20 @@ const ChatBot = class ChatBot {
 
         elMessages.innerHTML += viewMessage(data);
 
-        await this.action(elInputUser.value).then((responses) => {
-          console.log(responses);
-          for (let i = 0; responses.length > i; i += 1) {
-            elMessages.innerHTML += responseBot(responses[i]);
-            elMessages.scrollTop = elMessages.scrollHeight;
-          }
-        });
+        const res = await this.action(keyWord);
+        for (let i = 0; res.length > i; i += 1) {
+          elMessages.innerHTML += responseBot(res[i]);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        }
+
+        // const res = this.action(keyWord);
+        // res.then(async (responses) => {
+        //   console.log(responses);
+        //   for (let i = 0; responses.length > i; i += 1) {
+        //     elMessages.innerHTML += responseBot(responses[i]);
+        //     elMessages.scrollTop = elMessages.scrollHeight;
+        //   }
+        // });
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
       }
@@ -56,16 +63,21 @@ const ChatBot = class ChatBot {
           message: keyWord,
           date: new Date()
         };
-        elMessages.innerHTML += viewMessage(data);
-        elMessages.scrollTop = elMessages.scrollHeight;
 
-        await this.action(elInputUser.value).then((responses) => {
-          console.log(responses);
-          for (let i = 0; responses.length > i; i += 1) {
-            elMessages.innerHTML += responseBot(responses[i]);
-            elMessages.scrollTop = elMessages.scrollHeight;
-          }
-        });
+        elMessages.innerHTML += viewMessage(data);
+        const res = await this.action(keyWord);
+        for (let i = 0; res.length > i; i += 1) {
+          elMessages.innerHTML += responseBot(res[i]);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        }
+
+        // .then((responses) => {
+        //   console.log(responses);
+        //   for (let i = 0; responses.length > i; i += 1) {
+        //     elMessages.innerHTML += responseBot(responses[i]);
+        //     elMessages.scrollTop = elMessages.scrollHeight;
+        //   }
+        // });
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
       }
@@ -81,16 +93,17 @@ const ChatBot = class ChatBot {
 
         words.forEach(async (word) => {
           if (word === keyWord) {
+            const res = await response();
+            console.log(res);
             responses.push({
               name: bot.name,
               date: new Date(),
-              message: await response()
+              message: res
             });
           }
         });
       });
     });
-
     return responses;
   }
 
