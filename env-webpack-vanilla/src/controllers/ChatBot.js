@@ -128,7 +128,6 @@ const ChatBot = class ChatBot {
 
   addNotificationToBot(id) {
     const elBots = Array.from(document.querySelectorAll('.bot'));
-    console.log('All Bots:', elBots);
     elBots.forEach((elBot) => {
       if (parseInt(elBot.dataset.id, 10) === id) {
         const el = elBot.querySelector('.notification p');

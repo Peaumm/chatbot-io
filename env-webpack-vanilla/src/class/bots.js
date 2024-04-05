@@ -1,6 +1,7 @@
 import sayHello from './actions/sayHello';
 import sayWeather from './actions/sayWeather';
 import sayHelp from './actions/sayHelp';
+import sayJoke from './actions/sayJoke';
 
 const bots = [{
   id: 1,
@@ -10,7 +11,7 @@ const bots = [{
 }, {
   id: 2,
   name: 'Echo',
-  actions: [sayHello],
+  actions: [sayHello, sayJoke],
   notif: 0
 }, {
   id: 3,
