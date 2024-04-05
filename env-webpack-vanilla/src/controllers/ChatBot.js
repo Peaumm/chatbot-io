@@ -29,6 +29,7 @@ const ChatBot = class ChatBot {
         };
 
         elMessages.innerHTML += viewMessage(data);
+        elMessages.scrollTop = elMessages.scrollHeight;
 
         await this.action(keyWord);
 
@@ -52,6 +53,7 @@ const ChatBot = class ChatBot {
         };
 
         elMessages.innerHTML += viewMessage(data);
+        elMessages.scrollTop = elMessages.scrollHeight;
 
         await this.action(keyWord);
 
@@ -100,7 +102,6 @@ const ChatBot = class ChatBot {
 
   addNotificationToBot(id) {
     const elBots = Array.from(document.querySelectorAll('.bot'));
-    console.log('All Bots:', elBots);
     elBots.forEach((elBot) => {
       if (parseInt(elBot.dataset.id, 10) === id) {
         const el = elBot.querySelector('.notification p');
