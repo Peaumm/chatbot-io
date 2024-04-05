@@ -130,7 +130,7 @@ const ChatBot = class ChatBot {
     const elBots = Array.from(document.querySelectorAll('.bot'));
     console.log('All Bots:', elBots);
     elBots.forEach((elBot) => {
-      if (elBot.dataset.id === id) {
+      if (parseInt(elBot.dataset.id, 10) === id) {
         const el = elBot.querySelector('.notification p');
         const currentCount = parseInt(el.textContent, 10);
         const newCount = currentCount + 1;
