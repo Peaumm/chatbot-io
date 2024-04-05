@@ -44,6 +44,7 @@ const ChatBot = class ChatBot {
         //     elMessages.scrollTop = elMessages.scrollHeight;
         //   }
         // });
+
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
       }
@@ -78,6 +79,7 @@ const ChatBot = class ChatBot {
         //     elMessages.scrollTop = elMessages.scrollHeight;
         //   }
         // });
+
         elInputUser.value = '';
         elMessages.scrollTop = elMessages.scrollHeight;
       }
@@ -100,6 +102,7 @@ const ChatBot = class ChatBot {
               date: new Date(),
               message: res
             });
+            this.addNotificationToBot(bot.id);
           }
         });
       });
@@ -123,21 +126,25 @@ const ChatBot = class ChatBot {
     });
   }
 
-  incrementNotifications(id) {
-    const notification = document.getElementById(id);
-    const elMessages = document.querySelector('.section-messages');
-    if (elMessages && elMessages.children.length > 0) {
-      const currentNotificationCount = parseInt(notification.textContent, 10);
-      if (currentNotificationCount + 1 < 100) {
-        notification.textContent = currentNotificationCount + 1;
-      } else {
-        notification.textContent = '99+';
+  addNotificationToBot(id) {
+    const elBots = Array.from(document.querySelectorAll('.bot'));
+    console.log("All Bots:", elBots);
+    elBots.forEach((elBot) => {
+      if (elBot.dataset.id == id) {
+        const el = elBot.querySelector('.notification p');
+        const currentCount = parseInt(el.textContent, 10);
+        const newCount = currentCount + 1;
+        if (newCount > 100) {
+          el.textContent = '99+';
+        } else {
+          el.textContent = newCount;
+        }
       }
-    }
-  }
-
+    });
+  };
+    
   render() {
-    return (`
+    return `
       <div>${viewNav()}</div>
       <div class="container-fluid">
         <div class="row">
@@ -153,7 +160,7 @@ const ChatBot = class ChatBot {
           </div>
         </div>
       </div>
-    `);
+    `;
   }
 
   run() {

@@ -1,8 +1,10 @@
-export default (botName, botNotif) => {
+export default (botId, botName, botNotif) => {
+  const id = botId;
   const name = botName;
   const notif = botNotif;
+
   return (`
-  <div class="bot d-flex align-items-center my-3">
+  <div class="bot d-flex align-items-center my-3" data-id="${id}">
     <div class="icon-robot-list rounded-circle d-flex align-items-center justify-content-center"> 
       <i class="fa-solid fa-robot"></i>
     </div>
