@@ -1,6 +1,13 @@
 import sayHello from './actions/sayHello';
 import sayWeather from './actions/sayWeather';
 import sayHelp from './actions/sayHelp';
+// import axios from 'axios';
+
+// const res = axios.get('http://localhost/bots');
+// const bots = res.then((datas) => {
+//   const bot = datas.data;
+//   return bot;
+// });
 
 const bots = [{
   id: 1,

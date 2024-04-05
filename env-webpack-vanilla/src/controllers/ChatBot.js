@@ -1,7 +1,7 @@
 import axios from 'axios';
 import viewNav from '../views/nav';
 import viewListBots from '../views/chatbot/list-bots';
-import responseBot from '../views/chatbot/responseBot';
+import ViewMessageBot from '../views/chatbot/responseBot';
 import viewMessage from '../views/chatbot/message';
 import bots from '../class/bots';
 import input from '../views/chatbot/input';
@@ -30,23 +30,9 @@ const ChatBot = class ChatBot {
 
         elMessages.innerHTML += viewMessage(data);
 
-        const res = await this.action(keyWord);
-        for (let i = 0; res.length > i; i += 1) {
-          elMessages.innerHTML += responseBot(res[i]);
-          elMessages.scrollTop = elMessages.scrollHeight;
-        }
-
-        // const res = this.action(keyWord);
-        // res.then(async (responses) => {
-        //   console.log(responses);
-        //   for (let i = 0; responses.length > i; i += 1) {
-        //     elMessages.innerHTML += responseBot(responses[i]);
-        //     elMessages.scrollTop = elMessages.scrollHeight;
-        //   }
-        // });
+        await this.action(keyWord);
 
         elInputUser.value = '';
-        elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
@@ -66,29 +52,15 @@ const ChatBot = class ChatBot {
         };
 
         elMessages.innerHTML += viewMessage(data);
-        const res = await this.action(keyWord);
-        for (let i = 0; res.length > i; i += 1) {
-          elMessages.innerHTML += responseBot(res[i]);
-          elMessages.scrollTop = elMessages.scrollHeight;
-        }
 
-        // .then((responses) => {
-        //   console.log(responses);
-        //   for (let i = 0; responses.length > i; i += 1) {
-        //     elMessages.innerHTML += responseBot(responses[i]);
-        //     elMessages.scrollTop = elMessages.scrollHeight;
-        //   }
-        // });
+        await this.action(keyWord);
 
         elInputUser.value = '';
-        elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
 
   async action(keyWord) {
-    const responses = [];
-
     bots.forEach((bot) => {
       bot.actions.forEach((action) => {
         const { words, response } = action;
@@ -96,18 +68,18 @@ const ChatBot = class ChatBot {
         words.forEach(async (word) => {
           if (word === keyWord) {
             const res = await response();
-            console.log(res);
-            responses.push({
+            const elMessages = document.querySelector('.section-messages');
+            elMessages.innerHTML += ViewMessageBot({
               name: bot.name,
               date: new Date(),
               message: res
             });
+            elMessages.scrollTop = elMessages.scrollHeight;
             this.addNotificationToBot(bot.id);
           }
         });
       });
     });
-    return responses;
   }
 
   back() {
@@ -119,7 +91,7 @@ const ChatBot = class ChatBot {
           elMessages.innerHTML += viewMessage(datas);
           elMessages.scrollTop = elMessages.scrollHeight;
         } else if (datas.is_user === 0) {
-          elMessages.innerHTML += responseBot(datas);
+          elMessages.innerHTML += ViewMessageBot(datas);
           elMessages.scrollTop = elMessages.scrollHeight;
         }
       });
