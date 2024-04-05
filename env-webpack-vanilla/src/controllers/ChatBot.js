@@ -128,21 +128,21 @@ const ChatBot = class ChatBot {
 
   addNotificationToBot(id) {
     const elBots = Array.from(document.querySelectorAll('.bot'));
-    console.log("All Bots:", elBots);
+    console.log('All Bots:', elBots);
     elBots.forEach((elBot) => {
-      if (elBot.dataset.id == id) {
+      if (elBot.dataset.id === id) {
         const el = elBot.querySelector('.notification p');
         const currentCount = parseInt(el.textContent, 10);
         const newCount = currentCount + 1;
-        if (newCount > 100) {
+        if (newCount >= 100) {
           el.textContent = '99+';
         } else {
           el.textContent = newCount;
         }
       }
     });
-  };
-    
+  }
+
   render() {
     return `
       <div>${viewNav()}</div>
