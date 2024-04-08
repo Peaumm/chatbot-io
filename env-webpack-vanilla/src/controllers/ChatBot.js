@@ -34,6 +34,7 @@ const ChatBot = class ChatBot {
         await this.action(keyWord);
 
         elInputUser.value = '';
+        elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
