@@ -4,6 +4,7 @@ import sayHelp from './actions/sayHelp';
 import sayJoke from './actions/sayJoke';
 import sayLastReleasedGames from './actions/sayLastReleasedGames';
 import sayValo from './actions/sayValo';
+import sayQuoteAnime from './actions/sayQuoteAnime';
 
 // import axios from 'axios';
 
@@ -26,7 +27,7 @@ const bots = [{
 }, {
   id: 3,
   name: 'Jarvis',
-  actions: [sayHello, sayLastReleasedGames, sayValo],
+  actions: [sayHello, sayLastReleasedGames, sayValo, sayQuoteAnime],
   notif: 0
 }];
 

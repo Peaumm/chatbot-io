@@ -36,7 +36,6 @@ const sayValo = {
       const rValue = Uuid[rand];
       const res = await axios.get(`https://valorant-api.com/v1/agents/${rValue}`);
       const abilities = res.data.data.abilities.map((ability) => `- <img class="img-ability "src="${ability.displayIcon} "></img>   Ability's name : <b> ${ability.displayName} </b><br>`).join('');
-      console.log(res.data);
       resolve(`
         <img class="img-valo "src="${res.data.data.displayIconSmall} "></img><br><br>
         Agent's name is <b>${res.data.data.displayName}</b>.<br>
