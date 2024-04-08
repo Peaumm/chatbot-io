@@ -7,7 +7,6 @@ const sayQuoteAnime = {
   response: async () => (
     new Promise(async (resolve, reject) => {
       const res = await axios.get('https://animechan.xyz/api/random');
-      console.log(res.data);
       resolve(`
         La citation vient de <b>${res.data.character}</b> dans <b>${res.data.anime}</b>.<br>
         Quote : <b>${res.data.quote}</b>
