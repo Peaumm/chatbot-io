@@ -30,7 +30,7 @@ const sayLastReleasedGames = {
       const gameMessages = gameInfo.map((game) => `<b> Nom du jeu :</b> ${game.name} - <b>Date de sortie :</b> ${game.released} - <b>Note :</b> ${game.rating}`);
       return `Les dernières sorties PC entre le ${new Date(startDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })} et ${new Date(endDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })} sont :<br>${gameMessages.join('<br>')}`;
     } catch (error) {
-      throw new Error('Je n ai pas pu récupérer les informations sur les jeux.');
+      throw new Error('Je n\'ai pas pu récupérer les informations sur les jeux.');
     }
   }
 };
