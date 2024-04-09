@@ -6,6 +6,8 @@ import sayLastReleasedGames from './actions/sayLastReleasedGames';
 import sayLastMovies from './actions/sayLastMovies';
 import sayValo from './actions/sayValo';
 import sayQuoteAnime from './actions/sayQuoteAnime';
+import sayBlindTest from './actions/sayBlindTest';
+import sayOpenPoke from './actions/sayOpenPoke';
 
 // import axios from 'axios';
 
@@ -33,7 +35,7 @@ const bots = [{
 }, {
   id: 4,
   name: 'AnimeSama',
-  actions: [sayHello, sayQuoteAnime],
+  actions: [sayHello, sayQuoteAnime, sayBlindTest, sayOpenPoke],
   notif: 0
 }];
 
