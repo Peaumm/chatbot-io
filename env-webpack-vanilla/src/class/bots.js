@@ -30,7 +30,7 @@ const bots = [{
   actions: [sayHello, sayLastReleasedGames, sayValo],
   notif: 0
 }, {
-  id: 3,
+  id: 4,
   name: 'AnimeSama',
   actions: [sayHello, sayQuoteAnime],
   notif: 0

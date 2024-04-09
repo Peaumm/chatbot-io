@@ -5,7 +5,7 @@ const sayValo = {
   words: ['valo', 'agents'],
   arg: [],
   response: async () => (
-    new Promise(async (resolve, reject) => {
+    new Promise((resolve, reject) => {
       const Uuid = [
         'e370fa57-4757-3604-3648-499e1f642d3f',
         'dade69b4-4f5a-8528-247b-219e5a1facd6',
@@ -34,17 +34,19 @@ const sayValo = {
       ];
       const rand = Math.floor(Math.random() * Uuid.length);
       const rValue = Uuid[rand];
-      const res = await axios.get(`https://valorant-api.com/v1/agents/${rValue}`);
-      const abilities = res.data.data.abilities.map((ability) => `- <img class="img-ability "src="${ability.displayIcon} "></img>   Ability's name : <b> ${ability.displayName} </b><br>`).join('');
-      resolve(`
-        <img class="img-valo "src="${res.data.data.displayIconSmall} "></img><br><br>
-        Agent's name is <b>${res.data.data.displayName}</b>.<br>
-        His role is <b>${res.data.data.role.displayName}</b>.<br>
-        <b>${res.data.data.description}</b>.<br>
-        ${res.data.data.displayName} has ${res.data.data.abilities.length} abilities :<br>
-        ${abilities}
-      `);
-      reject(new Error("Désolé mais je n'ai pas trouvé la météo."));
+      const res = axios.get(`https://valorant-api.com/v1/agents/${rValue}`);
+      res.then((datas) => {
+        const abilities = datas.data.data.abilities.map((ability) => `- <img class="img-ability "src="${ability.displayIcon} "></img>   Ability's name : <b> ${ability.displayName} </b><br>`).join('');
+        resolve(`
+          <img class="img-valo "src="${datas.data.data.displayIconSmall} "></img><br><br>
+          Agent's name is <b>${datas.data.data.displayName}</b>.<br>
+          His role is <b>${datas.data.data.role.displayName}</b>.<br>
+          <b>${datas.data.data.description}</b>.<br>
+          ${datas.data.data.displayName} has ${datas.data.data.abilities.length} abilities :<br>
+          ${abilities}
+        `);
+        reject(new Error("Désolé mais l'agent est parti en mission."));
+      });
     })
   )
 };
