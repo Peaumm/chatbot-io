@@ -2,6 +2,7 @@ import sayHello from './sayHello';
 import sayWeather from './sayWeather';
 import sayJoke from './sayJoke';
 import sayLastReleasedGames from './sayLastReleasedGames';
+import sayLastMovies from './sayLastMovies';
 
 const sayHelp = {
   name: 'Help',
@@ -12,7 +13,8 @@ const sayHelp = {
       { command: [sayWeather.words], description: 'Afficher la météo selon la localisation' },
       { command: [sayHello.words], description: 'Dire bonjour' },
       { command: [sayJoke.words], description: 'Raconte une blague' },
-      { command: [sayLastReleasedGames.words], description: 'Affiche les derniers jeux sortis sur PC durant une période' }
+      { command: [sayLastReleasedGames.words], description: 'Affiche les derniers jeux sortis sur PC durant une période' },
+      { command: [sayLastMovies.words], description: 'Affiche les derniers films sortis durant une période' }
     ];
 
     const formattedCommands = availableCommands.map((cmd) => `<b>${cmd.description} : </b> ${cmd.command}`).join('<br>');
