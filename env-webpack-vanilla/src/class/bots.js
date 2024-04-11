@@ -1,3 +1,4 @@
+// import axios from 'axios';
 import sayHello from './actions/sayHello';
 import sayWeather from './actions/sayWeather';
 import sayHelp from './actions/sayHelp';
@@ -9,13 +10,24 @@ import sayQuoteAnime from './actions/sayQuoteAnime';
 import sayBlindTest from './actions/sayBlindTest';
 import sayOpenPoke from './actions/sayOpenPoke';
 
-// import axios from 'axios';
+// async function test() {
+//   const res = axios.get('http://localhost/bots');
+//   const bots2 = [];
+//   res.then((data) => {
+//     for (let i = 0; i < data.data.length; i += 1) {
+//       const decode = data.data[i].actions.replaceAll('"', '');
+//       bots2.push({
+//         id: data.data[i].id,
+//         name: data.data[i].name,
+//         actions: decode,
+//         notif: data.data[i].notif
+//       });
+//     }
+//   });
+//   return bots2;
+// }
 
-// const res = axios.get('http://localhost/bots');
-// const bots = res.then((datas) => {
-//   const bot = datas.data;
-//   return bot;
-// });
+// const bots = await test();
 
 const bots = [{
   id: 1,
@@ -34,7 +46,7 @@ const bots = [{
   notif: 0
 }, {
   id: 4,
-  name: 'AnimeSama',
+  name: 'Anime',
   actions: [sayHello, sayQuoteAnime, sayBlindTest, sayOpenPoke],
   notif: 0
 }];
