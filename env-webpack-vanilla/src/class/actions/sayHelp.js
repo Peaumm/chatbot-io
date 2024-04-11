@@ -5,6 +5,8 @@ import sayLastReleasedGames from './sayLastReleasedGames';
 import sayLastMovies from './sayLastMovies';
 import sayQuoteAnime from './sayQuoteAnime';
 import sayValo from './sayValo';
+import sayBlindTest from './sayBlindTest';
+import sayOpenPoke from './sayOpenPoke';
 
 const sayHelp = {
   name: 'Help',
@@ -18,7 +20,9 @@ const sayHelp = {
       { command: [sayLastReleasedGames.words], description: 'Affiche les derniers jeux sortis sur PC durant une période' },
       { command: [sayLastMovies.words], description: 'Affiche les derniers films sortis durant une période' },
       { command: [sayQuoteAnime.words], description: "Donne une citation d'un animé aléatoirement" },
-      { command: [sayValo.words], description: 'Affiche un agent aléatoire' }
+      { command: [sayValo.words], description: 'Affiche un agent aléatoire' },
+      { command: [sayBlindTest.words], description: 'Donne un blind test aléatoire sur les animé' },
+      { command: [sayOpenPoke.words], description: 'Vidéo des 17 premiers opening de pokémon' }
     ];
 
     const formattedCommands = availableCommands.map((cmd) => `<b>${cmd.description} : </b> ${cmd.command}`).join('<br>');
