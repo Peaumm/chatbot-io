@@ -46,7 +46,7 @@ const bots = [{
   notif: 0
 }, {
   id: 4,
-  name: 'Anime',
+  name: 'AnimeSam',
   actions: [sayHello, sayQuoteAnime, sayBlindTest, sayOpenPoke],
   notif: 0
 }];
