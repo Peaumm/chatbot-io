@@ -13,7 +13,8 @@ const sayLastReleasedMovies = {
   response: async () => {
     const apiKey = 'f4e9c1e664ccd294909d381a48369ee3';
     const startDate = '2024-03-01';
-    const endDate = '2024-04-07';
+    const date = new Date();
+    const endDate = date.toLocaleDateString('fr');
     const url = 'https://api.themoviedb.org/3/discover/movie';
 
     try {
@@ -35,7 +36,7 @@ const sayLastReleasedMovies = {
       }));
       const movieMessages = movieInfo.map((movie) => `<b>Titre :</b> ${movie.title}<br><b>Date de sortie :</b> ${movie.release_date}<br>`);
 
-      return `Les dernières sorties de films entre le ${new Date(startDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })} et ${new Date(endDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })} sont :<br>${movieMessages.join('<br>')}`;
+      return `Les dernières sorties de films entre le ${new Date(startDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })} et ${endDate} sont :<br>${movieMessages.join('<br>')}`;
     } catch (error) {
       throw new Error('Je n\'ai pas pu récupérer les informations sur les films.');
     }
