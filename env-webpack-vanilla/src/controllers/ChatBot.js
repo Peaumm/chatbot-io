@@ -28,7 +28,7 @@ const ChatBot = class ChatBot {
           message: keyWord,
           date: new Date()
         };
-
+        await this.sendMessageToDatabase(data.message);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -47,7 +47,7 @@ const ChatBot = class ChatBot {
           message: keyWord,
           date: new Date()
         };
-
+        await this.sendMessageToDatabase(data.message);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -92,6 +92,20 @@ const ChatBot = class ChatBot {
         }
       });
     });
+  }
+
+  async sendMessageToDatabase(message) {
+    const elMessages = document.querySelector('.section-messages');
+    try {
+      console.log('Message à envoyer à la base de données :', message);
+      const response = await axios.post('http://localhost/messages', { message });
+      console.log('Réponse de la base de données:', response.data);
+      elMessages.innerHTML += viewMessage({ message });
+      elMessages.scrollTop = elMessages.scrollHeight;
+      console.log('Message envoyé avec succès à la base de données.');
+    } catch (error) {
+      console.error('Error sending message to database:', error);
+    }
   }
 
   addNotificationToBot(id) {
