@@ -27,7 +27,7 @@ const ChatBot = class ChatBot {
           message: keyWord,
           date: new Date()
         };
-
+        await this.sendMessageToDatabase(data.message);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -52,7 +52,7 @@ const ChatBot = class ChatBot {
           message: keyWord,
           date: new Date()
         };
-
+        await this.sendMessageToDatabase(data.message);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -90,15 +90,24 @@ const ChatBot = class ChatBot {
     const res = axios.get('http://localhost/messages');
     res.then((messages) => {
       messages.data.forEach((datas) => {
-        if (datas.is_user === 1) {
-          elMessages.innerHTML += viewMessage(datas);
-          elMessages.scrollTop = elMessages.scrollHeight;
-        } else if (datas.is_user === 0) {
-          elMessages.innerHTML += ViewMessageBot(datas);
-          elMessages.scrollTop = elMessages.scrollHeight;
-        }
+        elMessages.innerHTML += viewMessage(datas);
+        elMessages.scrollTop = elMessages.scrollHeight;
       });
     });
+  }
+
+  async sendMessageToDatabase(message) {
+    const elMessages = document.querySelector('.section-messages');
+    try {
+      console.log('Message à envoyer à la base de données :', message);
+      const response = await axios.post('http://localhost/messages', { message });
+      console.log('Réponse de la base de données:', response.data);
+      elMessages.innerHTML += viewMessage({ message });
+      elMessages.scrollTop = elMessages.scrollHeight;
+      console.log('Message envoyé avec succès à la base de données.');
+    } catch (error) {
+      console.error('Error sending message to database:', error);
+    }
   }
 
   addNotificationToBot(id) {
