@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
 
-
 h1 {
   color: white;
   font-family: "Kavoon", serif;
@@ -42,11 +41,19 @@ h1 {
   border: 1px solid #000F42;
 }
 .input-message {
-  width: 70%!important;  
+  width: 70%!important;
 }
 .history-message {
   border: 1px solid #000F42;
   border-radius: 20px;
+  max-width: 89%;
+}
+.history-message-robot {
+  border: 1px solid #000F42;
+  border-radius: 20px;
+  background-color: #000F42;
+  color: white;
+  max-width: 89%;
 }
 .notification {
   height: 30px;
@@ -66,9 +73,12 @@ h1 {
   border: solid 1px #000F42;
   padding: 1rem;
   border-radius: 20px;
-  min-width: 180px;
+  min-width: 11rem;
   background-color: #000F42;
   position: relative;
+  max-width: 13rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .icon-robot-list {
   min-height: 50px;
@@ -78,21 +88,17 @@ h1 {
 }
 .input-group {
   position: fixed;
-  bottom: 5rem;
+  bottom: 3rem;
   right: 3rem;
   z-index: 1;
 }
 .section-messages {
-  height: 60vh;
+  height: 65vh;
+  width: 78%;
 }
 .delimitation {
-  height: 77.4vh;
-}
-.history-message-robot {
-  border: 1px solid #000F42;
-  border-radius: 20px;
-  background-color: #000F42;
-  color: white;
+  height: 80vh;
+  width: 5%;
 }
 .section-bot {
   height: 77vh;
@@ -104,4 +110,19 @@ h1 {
 .img-ability{
   max-width : 35px;
   height : 35px;
+}
+.bot-name{
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bot-name-list{
+  max-width: 7.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bot-icon{
+  width: 10%;
 }

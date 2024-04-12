@@ -4,7 +4,7 @@ import viewListBots from '../views/chatbot/list-bots';
 import ViewMessageBot from '../views/chatbot/responseBot';
 import viewMessage from '../views/chatbot/message';
 import bots from '../class/bots';
-import input from '../views/chatbot/input';
+import viewInput from '../views/chatbot/input';
 
 const ChatBot = class ChatBot {
   constructor(params) {
@@ -15,9 +15,10 @@ const ChatBot = class ChatBot {
     this.run();
   }
 
-  async onKeyUp() {
+  async sendMessage() {
     const elInputUser = document.querySelector('.input-user');
     const elMessages = document.querySelector('.section-messages');
+    const sendButton = document.querySelector('.btn-send');
 
     elInputUser.addEventListener('keyup', async (event) => {
       const keyWord = elInputUser.value;
@@ -37,12 +38,6 @@ const ChatBot = class ChatBot {
         elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
-  }
-
-  async sendMessage() {
-    const elMessages = document.querySelector('.section-messages');
-    const elInputUser = document.querySelector('.input-user');
-    const sendButton = document.querySelector('.btn-send');
 
     sendButton.addEventListener('click', async () => {
       const keyWord = elInputUser.value;
@@ -59,6 +54,7 @@ const ChatBot = class ChatBot {
         await this.action(keyWord);
 
         elInputUser.value = '';
+        elMessages.scrollTop = elMessages.scrollHeight;
       }
     });
   }
@@ -85,13 +81,15 @@ const ChatBot = class ChatBot {
     });
   }
 
-  back() {
+  importBack() {
     const elMessages = document.querySelector('.section-messages');
     const res = axios.get('http://localhost/messages');
     res.then((messages) => {
       messages.data.forEach((datas) => {
-        elMessages.innerHTML += viewMessage(datas);
-        elMessages.scrollTop = elMessages.scrollHeight;
+        if (datas.is_user === 1) {
+          elMessages.innerHTML += viewMessage(datas);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        }
       });
     });
   }
@@ -139,7 +137,7 @@ const ChatBot = class ChatBot {
           <div class="col-9 overflow-scroll section-messages display"></div>
           <!-- Input Messages -->
           <div id="" class="input-group input-message mt-3">
-            ${input()}
+            ${viewInput()}
           </div>
         </div>
       </div>
@@ -148,9 +146,8 @@ const ChatBot = class ChatBot {
 
   run() {
     this.el.innerHTML = this.render();
-    this.onKeyUp();
     this.sendMessage();
-    this.back();
+    this.importBack();
   }
 };
 
