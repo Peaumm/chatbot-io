@@ -1,7 +1,7 @@
 import axios from 'axios';
 import viewNav from '../views/nav';
 import viewListBots from '../views/chatbot/list-bots';
-import ViewMessageBot from '../views/chatbot/responseBot';
+import viewMessageBot from '../views/chatbot/responseBot';
 import viewMessage from '../views/chatbot/message';
 import bots from '../class/bots';
 import viewInput from '../views/chatbot/input';
@@ -25,10 +25,12 @@ const ChatBot = class ChatBot {
 
       if (event.keyCode === 13 && keyWord !== '') {
         const data = {
+          name: '',
           message: keyWord,
-          date: new Date()
+          date: new Date(),
+          isUser: 1
         };
-        await this.sendMessageToDatabase(data.message);
+        await this.sendMessageToDatabase(data);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -44,10 +46,12 @@ const ChatBot = class ChatBot {
 
       if (keyWord !== '') {
         const data = {
+          name: '',
           message: keyWord,
-          date: new Date()
+          date: new Date(),
+          isUser: 1
         };
-        await this.sendMessageToDatabase(data.message);
+        await this.sendMessageToDatabase(data);
         elMessages.innerHTML += viewMessage(data);
         elMessages.scrollTop = elMessages.scrollHeight;
 
@@ -68,7 +72,14 @@ const ChatBot = class ChatBot {
           if (word === keyWord) {
             const res = await response();
             const elMessages = document.querySelector('.section-messages');
-            elMessages.innerHTML += ViewMessageBot({
+            const data = {
+              name: bot.name,
+              message: res,
+              date: new Date(),
+              isUser: 0
+            };
+            await this.sendMessageToDatabase(data);
+            elMessages.innerHTML += viewMessageBot({
               name: bot.name,
               date: new Date(),
               message: res
@@ -86,22 +97,26 @@ const ChatBot = class ChatBot {
     const res = axios.get('http://localhost/messages');
     res.then((messages) => {
       messages.data.forEach((datas) => {
-        if (datas.is_user === 1) {
+        if (datas.isUser === 1) {
           elMessages.innerHTML += viewMessage(datas);
+          elMessages.scrollTop = elMessages.scrollHeight;
+        } else if (datas.isUser === 0) {
+          elMessages.innerHTML += viewMessageBot(datas);
           elMessages.scrollTop = elMessages.scrollHeight;
         }
       });
     });
   }
 
-  async sendMessageToDatabase(message) {
+  async sendMessageToDatabase(data) {
     const elMessages = document.querySelector('.section-messages');
     try {
-      console.log('Message à envoyer à la base de données :', message);
-      const response = await axios.post('http://localhost/messages', { message });
+      console.log('Message à envoyer à la base de données :', data);
+      const response = await axios.post('http://localhost/messages', data);
       console.log('Réponse de la base de données:', response.data);
-      elMessages.innerHTML += viewMessage({ message });
+      elMessages.innerHTML += viewMessage({ message, is_user: isUser });
       elMessages.scrollTop = elMessages.scrollHeight;
+
       console.log('Message envoyé avec succès à la base de données.');
     } catch (error) {
       console.error('Error sending message to database:', error);
